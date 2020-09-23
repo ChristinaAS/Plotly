@@ -2,16 +2,33 @@ var mydata = {};
 
 d3.json("samples.json").then((data) => {
     console.log(data);
-    let sel = d3.select(#selDataset")
-    for data.names.forEach((name) => {
-        sel.appendHTML("<option value='${name}>${name}</option>')
+    let sel = d3.select("#selDataset");
+    let names = data.names
+    names.forEach(name => {
+        sel.append("option").text(name).property("value", name);
+    });
+});
+    
 
-    }
     //console.log
     //mydata = data
-})
-// function optionChanged(value) {
-   // mydata.metadata.filter( )
+function optionChanged(metaID) {
+    d3.json("samples.json").then((data) => {
+        let metadata = data.metadata;
+        let Array = metadata.filter(obj => obj.id == metaID);
+        let result = Array[0];
+        let metaPanel = d3.select("#sample-metadata");
+        metaPanel.html("");
+        Object.entries(result).forEach((item) => {
+            metaPanel.append("h6").text(item[0]+ ": "+item[1]);
+        });
+    });
+}
+
+
+
+
+    // mydata.metadata.filter( )
 //    mydata.samples.filter()
 
 //    sorttableData = plotObject.otu_ids.map(obj, index)
