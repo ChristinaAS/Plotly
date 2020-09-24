@@ -9,20 +9,15 @@ d3.json("samples.json").then((data) => {
     });
 });
     
-
-    //console.log
-    //mydata = data
 function optionChanged(metaID) {
     metaDatas(metaID);
     charts(metaID);
-
 }
 
 function metaDatas(metaID) {    
     d3.json("samples.json").then((data) => {
         let metadata = data.metadata;
         let resultArray = metadata.filter(obj => obj.id == metaID)[0];
-        //let result = Array[0];
         let metaPanel = d3.select("#sample-metadata");
         metaPanel.html("");
         Object.entries(resultArray).forEach((item) => {
@@ -54,4 +49,20 @@ function charts(metaID) {
     };
 
     Plotly.newPlot("bar", barChart, layout);
+
+    let bubbleChart = [{
+        x: otu_ids,
+        y: sample_values,
+        text: otu_labels,
+        mode: "markers",
+        marker: {
+            size: sample_values,
+            color: otu_ids,
+            colorscale: "Earth"
+            }
+    }];
+    var bubblelayout = {
+        title: "Bacteria per Sample"
+    };
+    Plotly.newPlot("bubble", bubbleChart, bubblelayout)
 })};
