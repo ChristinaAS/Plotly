@@ -1,3 +1,3 @@
 # Plotly
 
-https://christinaas.github.io/d3/
+https://christinaas.github.io/Plotly
